@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audioguida Milano</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      width: 180px;
+      height: 180px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2e86c1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Audioguida Milano</h1>
+  <div class="menu">
+    <button onclick="playGuide('scala')">Teatro alla Scala</button>
+    <button onclick="playGuide('galleria')">Galleria Vittorio Emanuele</button>
+  </div>
+
+  <script>
+    const guides = {
+      scala: `Benvenuti al Teatro alla Scala di Milano. Questo teatro è uno dei più importanti al mondo per l’opera lirica e la musica classica. 
+              Inaugurato nel millesettecentosettantotto, ha ospitato grandi compositori come Verdi e Puccini. 
+              Visitare la Scala significa vivere la storia della musica italiana.`,
+      galleria: `Benvenuti nella Galleria Vittorio Emanuele Secondo. Questa elegante struttura, situata accanto al Duomo di Milano, 
+                 è uno dei primi esempi di galleria commerciale coperta in Europa. 
+                 Costruita nel diciannovesimo secolo, la Galleria è famosa per i suoi negozi di lusso, i mosaici e la maestosa cupola in vetro e ferro.`
+    };
+
+    function playGuide(place) {
+      const utterance = new SpeechSynthesisUtterance(guides[place]);
+      utterance.lang = 'it-IT';
+      utterance.rate = 1;
+      utterance.pitch = 1;
+
+      const voices = speechSynthesis.getVoices();
+      const italianVoice = voices.find(voice => voice.lang === 'it-IT');
+      if (italianVoice) utterance.voice = italianVoice;
+
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    }
+
+    // Carica le voci vocali (necessario su alcuni browser)
+    window.speechSynthesis.onvoiceschanged = () => {};
+  </script>
+
+</body>
+</html>
