@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audioguida Monumenti</title>
+  <style>
+    body {
+      background-color: #ffeb3b; /* Giallo */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      background-color: #007bff; /* Blu */
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 15px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Audioguida Monumenti</h1>
+  <button onclick="playAudio('cenacolo')">Cenacolo Vinciano</button>
+  <button onclick="playAudio('ambrogio')">Sant'Ambrogio</button>
+  <button onclick="playAudio('eustorgio')">Sant'Eustorgio</button>
+  <button onclick="playAudio('maurizio')">Monastero San Maurizio</button>
+
+  <audio id="cenacolo" src="cenacolo.mp3"></audio>
+  <audio id="ambrogio" src="santambrogio.mp3"></audio>
+  <audio id="eustorgio" src="santeustorgio.mp3"></audio>
+  <audio id="maurizio" src="monasterosanmaurizio.mp3"></audio>
+
+  <script>
+    function playAudio(id) {
+      // Ferma tutti gli altri audio prima di riprodurre quello selezionato
+      const audios = document.querySelectorAll('audio');
+      audios.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+
+      const audio = document.getElementById(id);
+      audio.play();
+    }
+  </script>
+</body>
+</html>
